@@ -24,7 +24,7 @@ public interface UserDao {
     void insert(UserBean user);
 
     //@Update("UPDATE `user` SET nick_name=#{nickName} WHERE user_name = #{userName}")
-    void updateNickName(@Param("userName") String userName, @Param("nickName") String nickName);
+    void update(@Param("userName") String userName, @Param("nickName") String nickName);
 
     //@Delete("DELETE FROM `user` WHERE user_name = #{userName}")
     void delete(@Param("userName") String userName);

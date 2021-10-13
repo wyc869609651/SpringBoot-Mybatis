@@ -29,7 +29,7 @@ public class UserDaoTest {
 
     @Test
     public void testUpdate(){
-        userDao.updateNickName("wx04", "哒哒哒");
+        userDao.update("wx04", "哒哒哒");
         List<UserBean> userList = userDao.getAll();
         for (UserBean user :
                 userList) {

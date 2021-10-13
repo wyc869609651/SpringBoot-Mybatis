@@ -3,10 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
+        <!--<groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>-->
+        <groupId>com.yonyou.iuap</groupId>
+        <artifactId>iuap-2nd-party</artifactId>
+        <version>6.0.0-SNAPSHOT</version>
     </parent>
     <groupId>com.example</groupId>
     <artifactId>demo</artifactId>
@@ -19,6 +22,16 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.yonyou.iuap.yms</groupId>
+            <artifactId>iuap-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.yonyou.iuap.yms</groupId>
+                    <artifactId>yms-datasource-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
@@ -44,13 +57,25 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>com.yonyou.iuap.yms</groupId>
+                <artifactId>yms-module-maven-plugin</artifactId>
+                <!--  填写iuap-pom-with-ucf-parent里iuap-boot-starter对应的版本-->
+                <version>2.0.0-SNAPSHOT</version>
+                <configuration>
+                    <!-- 模块信息必须和spring.application.name的值一致-->
+                    <moduleName>datasource-account</moduleName>
+                    <!-- 配置http/https访问该模块的根路径-->
+                    <contextPath>/</contextPath>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
@@ -58,6 +83,12 @@
                 <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**</include>
                 </includes>
             </resource>
         </resources>
